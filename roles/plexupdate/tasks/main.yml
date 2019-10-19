@@ -1,0 +1,4 @@
+---
+- include: plexupdate.yml
+- include: cron.yml
+  when: plexupdate_autoinstall or plexupdate_autoupdate

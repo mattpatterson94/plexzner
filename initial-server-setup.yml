@@ -1,0 +1,26 @@
+###########################################################################################################
+# Playbook: Plexzner Setup
+###################################################################################################################
+
+---
+- name: Plexzner
+  hosts: all
+  remote_user: root
+  gather_facts: true
+  vars:
+    # Plex related variables
+    tautulli_install: true
+    plexupdate_install: true
+    # Transmission variables
+    transmission_rpc_port: 9991
+    transmission_rpc_auth_required: true
+    transmission_group: wheel
+    transmission_url: '/baconbits/'
+    transmission_user: "{{ lookup('env', 'TRANSMISSION_USER') }}"
+    transmission_password: "{{ lookup('env', 'TRANSMISSION_PASSWORD') }}"
+    transmission_rpc_whitelist_enabled: false
+
+  roles:
+    # - base
+    # - plexmediaserver
+    - transmission

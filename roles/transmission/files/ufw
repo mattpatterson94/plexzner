@@ -1,0 +1,4 @@
+[transmission]
+title=Transmission Client
+description=Transmission Client RPC interface
+ports=9991/tcp|9091/tcp|51413/udp|51413/tcp
