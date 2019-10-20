@@ -1,2 +1,2 @@
-export TRANSMISSON_USER=ruler
 export TRANSMISSION_PASSWORD=changethis
+export SSHFS_PASSWORD=changethis

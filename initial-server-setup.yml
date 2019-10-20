@@ -8,6 +8,7 @@
   remote_user: root
   gather_facts: true
   vars:
+    create_user: ruler
     # Plex related variables
     tautulli_install: true
     plexupdate_install: true
@@ -16,11 +17,21 @@
     transmission_rpc_auth_required: true
     transmission_group: wheel
     transmission_url: '/baconbits/'
-    transmission_user: "{{ lookup('env', 'TRANSMISSION_USER') }}"
+    transmission_user: ruler
     transmission_password: "{{ lookup('env', 'TRANSMISSION_PASSWORD') }}"
     transmission_rpc_whitelist_enabled: false
+    transmission_watch_dir: '/home/ruler/torrents'
+    transmission_incomplete_dir: '/home/ruler/.incomplete'
+    transmission_download_dir: '/home/ruler/downloads'
+    # sshfs
+    remote_media_directory: '/'
+    ssh_username: u215565
+    ssh_password: "{{ lookup('env', 'SSHFS_PASSWORD') }}"
+    ssh_server: u215565.your-storagebox.de
+    ssh_media_directory: '/mnt/the-hub'
 
   roles:
-    # - base
-    # - plexmediaserver
+    - base
+    - plexmediaserver
     - transmission
+    - sshfs

@@ -1,0 +1,43 @@
+---
+
+- name: Install SSHFS and sshpass
+  apt: name={{ ['sshfs', 'sshpass'] }} state=present
+
+- name: Unmount (fusermount) Media Directory
+  command: fusermount -u {{ remote_media_directory }}
+  ignore_errors: yes
+
+- name: Unmount (umount) Media Directory
+  command: umount -l {{ remote_media_directory }}
+  ignore_errors: yes
+
+- name: Remove Media Directory
+  command: rmdir {{ remote_media_directory }}
+  ignore_errors: yes
+
+- name: Copy SSHFS Configuration
+  template: src={{ item.src }} dest={{ item.dest }} owner={{ item.owner }} group={{ item.group }} mode={{ item.mode }}
+  with_items:
+        - {src: fuse.conf, dest: "/etc/fuse.conf", owner: "{{ create_user }}", group: "wheel", mode: "0777"}
+        - {src: host.password.j2, dest: "/root/.ssh/host.password", owner: "{{ create_user }}", group: "wheel", mode: "0777"}
+
+- name: Create Media Directory
+  command: mkdir -p {{ remote_media_directory }}
+
+# - name: Mount Media Directory
+#   shell: /etc/sshfs_script
+#   args:
+#     executable: /bin/bash
+#   become: yes
+
+- name: Add mount to fstab
+  lineinfile:
+    path: /etc/fstab
+    create: yes
+    state: present
+    line: '{{ ssh_username }}@{{ ssh_username }}.your-storagebox.de:/  /mnt/the-hub  fuse.sshfs  defaults,_netdev,allow_other,ssh_command=sshpass\040-f\040/root/.ssh/host.password\040ssh  0  0'
+
+- name: Mount Media Directory
+  shell: mount -a
+  args:
+    executable: /bin/bash
