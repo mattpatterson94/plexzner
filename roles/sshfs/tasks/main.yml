@@ -24,12 +24,6 @@
 - name: Create Media Directory
   command: mkdir -p {{ remote_media_directory }}
 
-# - name: Mount Media Directory
-#   shell: /etc/sshfs_script
-#   args:
-#     executable: /bin/bash
-#   become: yes
-
 - name: Add mount to fstab
   lineinfile:
     path: /etc/fstab
@@ -41,3 +35,9 @@
   shell: mount -a
   args:
     executable: /bin/bash
+
+- name: Ensure storage box is mounted automatically
+  cron:
+    name: "auto mount dirs"
+    minute: "5"
+    job: "mount -a > /dev/null"

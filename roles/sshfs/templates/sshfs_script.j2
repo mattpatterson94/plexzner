@@ -1,2 +1,0 @@
-#!/bin/bash
-/usr/bin/sshfs {{ ssh_username }}@{{ ssh_server }}:{{ ssh_media_directory }} {{ remote_media_directory }} -F /etc/ssh/ssh_config -o uid=1000 -o gid=105 -o allow_other -o IdentityFile=/root/.ssh/id_rsa -o idmap=user -o sshfs_debug -d > /tmp/x.txt 2>&1 &
