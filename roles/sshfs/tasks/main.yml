@@ -29,15 +29,9 @@
     path: /etc/fstab
     create: yes
     state: present
-    line: '{{ ssh_username }}@{{ ssh_username }}.your-storagebox.de:/  /mnt/the-hub  fuse.sshfs  defaults,_netdev,allow_other,ssh_command=sshpass\040-f\040/root/.ssh/host.password\040ssh  0  0'
+    line: '{{ ssh_username }}@{{ ssh_username }}.your-storagebox.de:/  /mnt/the-hub  fuse.sshfs  defaults,_netdev,allow_other,reconnect,ssh_command=sshpass\040-f\040/root/.ssh/host.password\040ssh  0  0'
 
 - name: Mount Media Directory
   shell: mount -a
   args:
     executable: /bin/bash
-
-- name: Ensure storage box is mounted automatically
-  cron:
-    name: "auto mount dirs"
-    minute: "5"
-    job: "mount -a > /dev/null"
