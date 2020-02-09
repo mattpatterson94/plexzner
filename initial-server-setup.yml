@@ -29,9 +29,12 @@
     ssh_password: "{{ lookup('env', 'SSHFS_PASSWORD') }}"
     ssh_server: u215565.your-storagebox.de
     ssh_media_directory: '/mnt/the-hub'
+    # resilio sync
+    resilio_password: "{{ lookup('env', 'RESILIO_PASSWORD') }}"
 
   roles:
     - base
     - plexmediaserver
     - transmission
     - sshfs
+    - resiliosync

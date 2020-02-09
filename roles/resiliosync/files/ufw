@@ -1,0 +1,4 @@
+[resiliosync]
+title=ResilioSync
+description=ResilioSync
+ports=8888/tcp|53524/udp|53524/tcp

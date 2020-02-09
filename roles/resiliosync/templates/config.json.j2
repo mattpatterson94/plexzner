@@ -1,0 +1,17 @@
+{
+    "agree_to_EULA": "yes",
+    "device_name": "plexzner",
+    "storage_path": "/var/lib/resilio-sync/",
+    "pid_file": "/var/run/resilio-sync/sync.pid",
+    "use_upnp": true,
+    "listening_port": 53524,
+    "directory_root": "/",
+    "directory_root_policy": "all",
+    "webui": {
+      "listen": "0.0.0.0:8888",
+      "login": "{{ create_user }}",
+      "password": "{{ resilio_password }}",
+      "dir_whitelist": ["/mnt"]
+    },
+    "bind_interface": "{{ ansible_default_ipv4.macaddress }}"
+}
